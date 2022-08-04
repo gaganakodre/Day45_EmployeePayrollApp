@@ -124,3 +124,39 @@ label{
     color: #42515f;
     background-color: transparent;
 }
+.buttonParent
+{
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.buttonParent{
+    
+    font-family: Roboto;
+    letter-spacing: 0px;
+    color:#42515f;
+    opacity: 1;
+    background: transparent;
+    border: none;
+    min-width: 140px;
+    padding: 7px 7px;
+    
+    cursor: pointer;
+}
+.submitButtton
+{
+    border: none;
+    background-color: #f5f5f5;
+    margin-right: 30px;
+}
+.cancelButton
+{
+    text-decoration: none;
+    text-align: center;
+    border: 0px;
+    color: #42515f;
+    border: 1px solid #42515f;
+    padding: 1px;
+    border-radius: 3px;
+}
