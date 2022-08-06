@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assest/logo/employeelogo.png"/>
     <link rel="stylesheet" type="text/css" href="../css/RegistrationForm.css" />
     <title>Registration Form</title>
 </head>
@@ -21,11 +22,11 @@
         </div>
     </header>
     <div class="form-content">
-            <form class="form" action="#" onsubmit="save();return false">
+            <form class="form" action="#" onreset="resetForm()" onsubmit="save()">
                 <div class="form-head">Employee Payroll form</div>
                     <div class="row-content"><label class="label text" for="name">Name</label>
                     <input class="input" type="text" id="name" name="name" placeholder="please enter your name.." required>
-                    <error-input class="error"></error-input>
+                    <error-output class="text-error" for="text"></error-output>
                 </div>
             
     
@@ -66,27 +67,27 @@
                 <div class="row-content">
                     <label class="label text" for="department">Department</label>
                     <div>
-                        <input class="checkbox" type="checkbox" id="hr" name="hr" value="HR" title="mark to which you belong">
+                        <input class="checkbox" type="checkbox" id="hr" name="department" value="HR" title="mark to which you belong">
                         <label class="text" for="hr">HR</label>
-                        <input class="checkbox" type="checkbox" id="sales" name="sales" value="Sales" title="mark to which you belong">
+                        <input class="checkbox" type="checkbox" id="sales" name="department" value="Sales" title="mark to which you belong">
                         <label class="text" for="sales">Sales</label>
-                        <input class="checkbox" type="checkbox" id="finance" name="finance" value="Finance" title="mark to which you belong">
+                        <input class="checkbox" type="checkbox" id="finance" name="department" value="Finance" title="mark to which you belong">
                         <label class="text" for="finance">Finance</label>
-                        <input class="checkbox" type="checkbox" id="engineer" name="engineer" value="Engineer" title="mark to which you belong">
+                        <input class="checkbox" type="checkbox" id="engineer" name="department" value="Engineer" title="mark to which you belong">
                         <label class="text" for="engineer">Engineer</label>
-                        <input class="checkbox" type="checkbox" id="others" name="others" value="Others" title="mark to which you belong">
+                        <input class="checkbox" type="checkbox" id="others" name="department" value="Others" title="mark to which you belong">
                         <label class="text" for="others">Others</label>
                     </div>
                 </div>
                 <div class="row-content">
                     <label class="label text" for="salary" >Choose your salary: </label>
-                    <input title="select range" class="input" type="range" name="salary" id="Salary" min="300000" max="500000" step="100" value="400000">
-                    <salary-output class="salary-output">50000</salary-output>
+                    <input title="select range" class="input" type="range" name="salary" id="salary" min="300000" max="500000" step="100" value="400000">
+                    <salary-output class="salary-output" id="salaryOutput">50000</salary-output>
                 </div>
                 <div class="row-content">
-                    <label class="label text" for="startDate">Start Date</label>
+                    <label class="label text" for="startDate" >Start Date</label>
                     <div>
-                        <select title="choose date" id="day" name="Day">
+                        <select title="choose date" id="day" name="Day" >
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -119,7 +120,7 @@
                             <option value="30">30</option>
                             <option value="31">31</option>
                         </select>
-                        <select title="choose month" id="month" name="Month">
+                        <select title="choose month" id="month" name="Month" >
                             <option value="Jan">Jan</option>
                             <option value="Feb">Feb</option>
                             <option value="Mar">Mar</option>
@@ -133,13 +134,14 @@
                             <option value="Nov">Nov</option>
                             <option value="Dec">Dec</option>
                         </select>
-                        <select title="choose year" id="year" name="Year">
+                        <select title="choose year" id="year" name="Year" >
+                            <option value="2022">2022</option>
                             <option value="2021">2021</option>
                             <option value="2020">2020</option>
                             <option value="2019">2019</option>
                             <option value="2018">2018</option>
-                            <option value="2017">2017</option>
                         </select>
+                        <error id="errorDate" class="error" name="errorDate"></error>
                     </div>
                 </div>
                 <div class="row-content">
@@ -155,8 +157,7 @@
                 </div>
             </form>
         </div>
-        <script src="../js/RegistrationForm.js">
-        
-        </script>
+        <script src="../js/RegistrationForm.js"></script>
+        <script src="../js/EmployeePayRoll.js"></script>
 </body>
 </html>

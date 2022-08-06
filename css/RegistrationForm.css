@@ -6,6 +6,13 @@ body
     margin: 0;
     height: 100%;
 }
+/*error1
+{
+    margin-left: 10px;
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+}*/
 .header
 {
     padding: 15px 0;
@@ -125,6 +132,13 @@ label{
     color: #42515f;
     background-color: transparent;
 }
+error-output
+{
+    margin-left: 10px;
+    font-size: 12px;
+    font-style: italic;
+    color:red;
+}
 .buttonParent
 {
     display: flex;
@@ -162,6 +176,7 @@ label{
     padding: 1px 3px 1px 3px;
     border-radius: 3px;
 }
+
 @media only screen and (max-width:960px)
 {
     .cancelButton{margin-left: 0px;}

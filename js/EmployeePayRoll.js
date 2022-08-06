@@ -1,11 +1,5 @@
-class EmployeePayRollData
+class EmployeePayrollData
 {
-    //validating the id
-    get id(){return this._id;}
-    set id(id){
-        this._id=id;
-    }
-    //validating name
     get name() {return this._name; }
     set name(name) {
         let nameRegex = RegExp('^[A-Z]{1}[a-z]{2,}$');
@@ -13,54 +7,39 @@ class EmployeePayRollData
         {
             this._name = name;
         }
-        else throw 'Name is Incorrect!'; 
-        //console.log("To set the name: "+name)
+        else throw 'Name is Incorrect!';
         this._name=name;
     }
-    //validating profile pic
-    get profilePic(){return this._profilePic; }
+    get profilePic() {return this._profilePic}
     set profilePic(profilePic){
         this._profilePic=profilePic;
     }
-    //validating salary
-    get salary() { return this._salary; }
-    set salary(salary) 
-        {
-            this._salary = salary;
-        }
-    //validating gender
-    get gender() { return this._gender; }
-    set gender(gender)
-        {
-            this._gender=gender;
-        }
-        //validating department
-    get department() { return this._department; }
-    set department(department)
-        {
-            this._department=department;
-        }
-        //validating department
-    get note() { return this._note; }
-    set note(note)
-        {
-            this._note;
-        }
-    //Validate start date is not future date
-    get startDate(){ return this._startDate };
-    set startDate(startDate)
-        {
-            this._startDate = startDate;
-        }
+    get gender() {return this._gender}
+    set gender(gender){
+        this._gender=gender;
+    }
+    get department() {return this._department}
+    set department(department){
+        this._department=department;
+    }
+    get salary() {return this._salary}
+    set salary(salary){
+        this._salary=salary;
+    }
+    get note() {return this._note}
+    set note(note){
+        this._note=note;
+    }
+    get startDate() {return this._startDate}
+    set startDate(startDate){
+        this._startDate=startDate;
+    }
+    toString(){
+        const options={year:'numeric',month:'long',day:'numeric'};
+        const empDate=!this.startDate?"undefined":
+                      this.startDate.toLocaleDateString("en-US",options);
+        return "id=" +this.id +",name=" +this.name +",gender="+this.gender +",profilePic=" +this.profilePic
+        +",department" +this.department +",salary=" +this.salary +",statrDate=" +empDate +",Note=" +this.note;
 
-    //method
-    toString()
-    {
-        const options = { year: 'numeric', month: 'long', day: 'numeric'};
-        const empDate = this.startDate == undefined ? "undefined" : this.startDate.toLocaleDateString("en-US", options);
-        return "id:"+this.id +",name: "+this.name +",\tsalary" +this.salary +", \tgender" +this.gender+",\tstartDate:"+this.empDate
-        +",\tprofilepic: "+this.profilePic +",\tdepartment: "+this.department +",\tnote: "+this.note;
-        
     }
 }
-

@@ -1,25 +1,27 @@
-//uc6-salary
-var salaryInput=document.querySelector('#Salary')
-var salaryerror=document.querySelector('.salary-output');
-salaryerror.textContent=salaryInput.value;
-salaryInput.addEventListener('input',function()
-{
-    salaryerror.textContent=salaryInput.value;
-});
-//name validation
-const text=document.querySelector('#name');
-        const error=document.querySelector('.error');
-        text.addEventListener('input',function()
+window.addEventListener('DOMContentLoaded', (event) => {
+    const name =document.querySelector('#name');
+    const textError =  document.querySelector('.text-error');
+    name.addEventListener('input', function() {
+        if(name.value.length == 0)
         {
-            let nameRegex=RegExp("^[A-Z]{1}[a-z]{2,}$");
-            if(nameRegex.test(text.value))
-            {
-                error.textContent="";
-            }
-            else
-            {
-                error.textContent="Name is Invalid";
+            textError.textContent = " ";
+            return;
+        }
+        try{
+            (new EmployeePayrollData()).name = name.value;;
+            textError.textContent= " ";
+        }
+        catch(e)
+        {
+            textError.textContent = e;
+        }
+    });
+    const salary = document.querySelector('#salary');
+    const output = document.querySelector('salary-output');
+    output.textContent= salary.value;
+    salary.addEventListener('input', function() {
+        output.textContent = salary.value;
+    });
+});
 
-            }
 
-        });
