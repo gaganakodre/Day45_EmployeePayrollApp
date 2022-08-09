@@ -20,6 +20,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
         document.getElementById('display_container').innerHTML=innerHtml;
         
     }
+    const getDeptHtml=(deptList)=>{
+     let deptHtml='';
+     for(const dept of deptList){
+        deptHtml=`${deptHtml}<div class='dept-label'>${dept}</div>`
+     }
+     return deptHtml;
+    }
     const createEmployeeJSON=()=>{
         let empPayrollListLocal=[
             {
