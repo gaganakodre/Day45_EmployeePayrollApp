@@ -1,32 +1,50 @@
+
 window.addEventListener("DOMContentLoaded", (event) => {
     createInnerHtml(); });
     const createInnerHtml=()=>{
-        const innerHtml=` <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Gender</th>
-                <th>Department</th>
-                <th>Salary</th>
-                <th>Start Date</th>
-                <th>Actions</th>
-        </tr>
-        
+        const headerHtml= " <tr><th></th<th>Name</th><th>Gender</th><th>Department</th><th>Salary</th><th>Start Date</th><th>Actions</th></tr>";
+       let empPayRollData=createEmployeeJSON()[0]; 
+       const innerHtml=`${headerHtml}
         <tr>
-            <td><img class="profile" src="../assest/profilepic/Ellipse -1.png" alt=""></td>
-            <td>shreeGowri</td>
-            <td>Female</td>
-            <td><div class="dept-label">HR</div><div class="dept-label">Finance</div></td>
-            <td>6000000</td>
-            <td>1 nov 2008</td>
+            <td><img class="profile" src="${empPayRollData._profilPic}" alt=""></td>
+            <td>${empPayRollData._name}</td>
+            <td>${empPayRollData._gender}</td>
+            <td><div class="dept-label">${empPayRollData._department[0]}</div><div class="dept-label">${empPayRollData._department[1]}</div></td>
+            <td>${empPayRollData._salary}</td>
+            <td>${empPayRollData._startDate}</td>
             <td>
-                <img src="../assest/Icon/deleteIcon.svg" alt="delete" />
-                <img src="../assest/Icon/EditIcon.svg" alt="edit" />
+                <img name="${empPayRollData._id} " onclick="remove(this)" src="../assest/Icon/deleteIcon.svg" alt="delete" />
+                <img name="${empPayRollData._id} " onclick="update(this)" src="../assest/Icon/EditIcon.svg" alt="edit" />
             </td>
-        </tr>
-        
-        `;
+        </tr>`;
         document.getElementById('display_container').innerHTML=innerHtml;
         
     }
+    const createEmployeeJSON=()=>{
+        let empPayrollListLocal=[
+            {
+                _name: 'kavana',
+                _gender:'Female',
+                _department:['Engineer','Finance'],
+                _salary:'500000',
+                _startDate:'29 oct 2021',
+                _note:'',
+                _id:new Date().getTime(),
+                _profilePic:'../assets/profilepic/Ellipse-1.png'
+            },
+            {
+                _name:'karan',
+                _gender:'male',
+                _department:['Engineer','Finance'],
+                _salary:'500000',
+                _startDate:'29 oct 2021',
+                _note:'',
+                _id:new Date().getTime()+1,
+                _profilePic:'../assets/profilepic/Ellipse-1.png'
+            }
+        ];
+        return empPayrollListLocal;
+    }
+    
      
     
