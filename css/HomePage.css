@@ -112,6 +112,7 @@ td,th{
 }
 th{
     background-color: #42515f ;
+
     border-radius: 3px 3px 0px 0px;
     text-align: left;
     font: normal normal medium 18px/24px Roboto;
@@ -145,7 +146,7 @@ td img
 {
     cursor: pointer;
 }
-.dept_label
+.dept-label
 {
     display: flex;
     flex-direction: row;
