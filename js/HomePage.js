@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     empPayrollList=getEmployeePayrollDataFromStorage();
     document.querySelector(".emp-count").textContent=empPayrollList.length;
     createInnerHtml();
-    localStorage.removeItem('editEmp');
+    //localStorage.removeItem('editEmp');
  });
  const getEmployeePayrollDataFromStorage=()=>{
     return localStorage.getItem('EmployeePayrollList') ?
@@ -24,21 +24,21 @@ window.addEventListener("DOMContentLoaded", (event) => {
             <td>${empPayRollData._salary}</td>
             <td>${stringifyDate(empPayRollData.date)}</td>
             <td>
-                <img name="${empPayRollData._name}" onclick="remove(this)" src="../assest/Icon/deleteIcon.svg" alt="delete" />
-                <img name="${empPayRollData._name}" onclick="update(this)" src="../assest/Icon/EditIcon.svg" alt="edit" />
+                <img name="${empPayRollData._id}" onclick="remove(this)" src="../assest/Icon/deleteIcon.svg" alt="delete" />
+                <img name="${empPayRollData._id}" onclick="update(this)" src="../assest/Icon/EditIcon.svg" alt="edit" />
             </td>
         </tr>`
         };
         document.getElementById('display_container').innerHTML=innerHtml;
         
     }
-    const stringifyDate = (date) =>
-        {
-            const options = {day:'numeric', month:'short',year:'numeric'};
-            const newDate = !date?"undefined": new Date(Date.parse(date)).toLocaleDateString('en-GB',options);
-            return newDate;
+    // const stringifyDate = (date) =>
+    //     {
+    //         const options = {day:'numeric', month:'short',year:'numeric'};
+    //         const newDate = !date?"undefined": new Date(Date.parse(date)).toLocaleDateString('en-GB',options);
+    //         return newDate;
 
-        }
+    //     }
     const getDeptHtml=(deptList)=>{
      let deptHtml='';
      for(const dept of deptList){
@@ -72,11 +72,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
         return empPayrollListLocal;
     }
     const remove=(node)=>{
-        let empPayRollData=empPayrollList.find(empData=>empData._name==node.name);
+        let empPayRollData=empPayrollList.find(empData=>empData._id==node.id);
         if(!empPayRollData) return;
         const index=empPayrollList
-        .map(empData=>empData._name)
-        .indexOf(empPayRollData._name);
+        .map(empData=>empData._id)
+        .indexOf(empPayRollData._id);
     empPayrollList.splice(index,1);
     localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
     document.querySelector(".emp-count").textContent=empPayrollList.length;
