@@ -78,7 +78,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         .map(empData=>empData._name)
         .indexOf(empPayRollData._name);
     empPayrollList.splice(index,1);
-    localStorage.setItem("EmplyeePayrollList", JSON.stringify(empPayrollList));
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
     document.querySelector(".emp-count").textContent=empPayrollList.length;
     createInnerHtml();
     }
