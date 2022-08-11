@@ -22,7 +22,7 @@
         </div>
     </header>
     <div class="form-content">
-            <form class="form" action="#" onreset="resetForm()" onsubmit="save()">
+            <form class="form" action="#" onreset="resetForm()" onsubmit="save(event)">
                 <div class="form-head">Employee Payroll form</div>
                     <div class="row-content"><label class="label text" for="name">Name</label>
                     <input class="input" type="text" id="name" name="name" placeholder="please enter your name.." required>
@@ -121,18 +121,18 @@
                             <option value="31">31</option>
                         </select>
                         <select title="choose month" id="month" name="Month" >
-                            <option value="Jan">Jan</option>
-                            <option value="Feb">Feb</option>
-                            <option value="Mar">Mar</option>
-                            <option value="Apr">Apr</option>
+                            <option value="January">January</option>
+                            <option value="Febuary">Febuary</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
                             <option value="May">May</option>
-                            <option value="Jun">Jun</option>
-                            <option value="Jul">Jul</option>
-                            <option value="Aug">Aug</option>
-                            <option value="Sep">Sep</option>
-                            <option value="Oct">Oct</option>
-                            <option value="Nov">Nov</option>
-                            <option value="Dec">Dec</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
                         </select>
                         <select title="choose year" id="year" name="Year" >
                             <option value="2022">2022</option>
@@ -157,9 +157,9 @@
                 </div>
             </form>
         </div>
-        <script src="../js/RegistrationForm.js"></script>
+</body>
+<script src="../js/RegistrationForm.js"></script>
         <script src="../js/EmployeePayRoll.js"></script>
         <script src="../js/siteProperties.js"></script>
         <script src="../js/utility.js"></script>
-</body>
 </html>

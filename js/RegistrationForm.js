@@ -22,9 +22,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const date=document.querySelector('#date');
     date.addEventListener('input',function()
     {
-        const startDate=new Date(Date.parse(getInputValueById('#day')+" "+getInputValueById('#month')+" "+getInputValueById('#year')));
+        let startDate=getInputValueById('#day')+" "+getInputValueById('#month')+" "+getInputValueById('#year');
         try{
-            (new EmployeePayrollData()).startDate=startDate;
+            (new EmployeePayrollData()).startDate=new Date(Date.parse(startDate));
             setTextValue('.error'," ");
         }
         catch(e)
@@ -44,8 +44,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 const checkForUpdate=()=>{
     const employeePayrollJson=localStorage.getItem('editEmp');
     isUpdate=employeePayrollJson ? true : false;
-    if(!isUpdate)return;
+    if(!isUpdate) return;
     employeePayrollObj=JSON.parse(employeePayrollJson);
+    setForm();
 }
 const setForm=()=>
 {
@@ -67,7 +68,11 @@ const setSelectedValues=(propertyValue,value)=>{
     allItems.forEach(item=>
         {
             if(Array.isArray(value)){
-                item.checked=true;
+                if(value.includes(item.value)){
+                    item.checked=true;
+
+                }
+                
             }
             else if(item.value===value)
             item.checked=true;
@@ -88,8 +93,8 @@ const setSelectedValues=(propertyValue,value)=>{
 //save fuction
 const save=(event)=>
 {
-    // event.preventDefault();
-    // event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
     try{
         setEmployeePayrollObject();
         createAndUpdateStorage();
@@ -119,7 +124,7 @@ const createAndUpdateStorage=()=>
     let employeePayrollList=JSON.parse(localStorage.getItem("EmployeePayrollList"));
     if(employeePayrollList)
     {
-        let empPayRollData=employeePayrollList.find(empData._id==employeePayrollObj._id);
+        let empPayRollData=employeePayrollList.find(empData => empData._id==employeePayrollObj._id);
         
             if(!empPayRollData)
             {
@@ -134,7 +139,8 @@ const createAndUpdateStorage=()=>
     {
             employeePayrollList=[createEmployeePayrollData()]
     }
-        localStorage.setItem("EmployeePayrollList",JSON.parse(employeePayrollList))
+        //localStorage.setItem("EmployeePayrollList",JSON.parse(employeePayrollList))
+        localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList))
 
     }
 
@@ -209,7 +215,7 @@ const createEmployeePayroll=()=>{
     employeePayrollData.salary=getInputValueById('#salary');
     employeePayrollData.note=getInputValueById('#notes');
     let date=getInputValueById('#day')+" "+getInputValueById('#month')+" "+getInputValueById('#year');
-    employeePayrollData.date=new Date(date);
+    employeePayrollData.date=Date.parse(date);
     alert(employeePayrollData.toString());
     return employeePayrollData;
     }
@@ -246,10 +252,14 @@ const resetForm=() =>
   unsetSelectedValues('[name=department]');
   setValuebyClassName('.salary-output','400000');
   setValue('#notes','');
-  setValue('#day','1');
-  setValue('#month','january')
-  setValue('#year','2022');
-  alert("The Form has been reseted");
+  setSelectedIndex('#day','0');
+  setSelectedIndex('#month','0')
+  setSelectedIndex('#year','0');
+  //alert("The Form has been reseted");
+}
+const setSelectedIndex=(id,index)=>{
+    const element=document.querySelector(id);
+    element.selectedIndex=index;
 }
 const unsetSelectedValues=(propertyValue)=>{
     let allItems = document.querySelectorAll(propertyValue);

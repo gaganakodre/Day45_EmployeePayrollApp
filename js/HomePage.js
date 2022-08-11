@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     empPayrollList=getEmployeePayrollDataFromStorage();
     document.querySelector(".emp-count").textContent=empPayrollList.length;
     createInnerHtml();
-    //localStorage.removeItem('editEmp');
+    localStorage.removeItem('editEmp');
  });
  const getEmployeePayrollDataFromStorage=()=>{
     return localStorage.getItem('EmployeePayrollList') ?
@@ -24,14 +24,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
             <td>${empPayRollData._salary}</td>
             <td>${stringifyDate(empPayRollData.date)}</td>
             <td>
-                <img name="${empPayRollData._id}" onclick="remove(this)" src="../assest/Icon/deleteIcon.svg" alt="delete" />
-                <img name="${empPayRollData._id}" onclick="update(this)" src="../assest/Icon/EditIcon.svg" alt="edit" />
+                <img id="${empPayRollData._id}" onclick="remove(this)" src="../assest/Icon/deleteIcon.svg" alt="delete" />
+                <img id="${empPayRollData._id}" onclick="update(this)" src="../assest/Icon/EditIcon.svg" alt="edit" />
             </td>
         </tr>`
         };
         document.getElementById('display_container').innerHTML=innerHtml;
         
     }
+    
     // const stringifyDate = (date) =>
     //     {
     //         const options = {day:'numeric', month:'short',year:'numeric'};
@@ -82,5 +83,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
     document.querySelector(".emp-count").textContent=empPayrollList.length;
     createInnerHtml();
     }
-     
+    //update
+    let update = (node) =>
+            {
+                let empPayRollData=empPayrollList.find(empData => empData._id == node.id);
+                if(!empPayRollData) return;
+                localStorage.setItem('editEmp',JSON.stringify(empPayRollData));
+                window.location.replace(site_properties.add_emp_payroll_pages);
+            } 
     
