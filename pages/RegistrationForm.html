@@ -82,11 +82,11 @@
                 <div class="row-content">
                     <label class="label text" for="salary" >Choose your salary: </label>
                     <input title="select range" class="input" type="range" name="salary" id="salary" min="300000" max="500000" step="100" value="400000">
-                    <salary-output class="salary-output" id="salaryOutput"></salary-output>
+                    <salary-output class="salary-output" id="salaryOutput" value="400000">400000</salary-output>
                 </div>
                 <div class="row-content">
                     <label class="label text" for="startDate" >Start Date</label>
-                    <div>
+                    <div id="date">
                         <select title="choose date" id="day" name="Day" >
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -159,7 +159,6 @@
         </div>
         <script src="../js/RegistrationForm.js"></script>
         <script src="../js/EmployeePayRoll.js"></script>
-        <script src="../js/HomePage.js"></script>
         <script src="../js/siteProperties.js"></script>
         <script src="../js/utility.js"></script>
 </body>
