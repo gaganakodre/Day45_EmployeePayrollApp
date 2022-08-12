@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", (event) =>
             <td>${empPayRollData._gender}</td>
             <td>${getDeptHtml(empPayRollData._department)}</td>
             <td>${empPayRollData._salary}</td>
-            <td>${stringifyDate(empPayRollData._startdate)}</td>
+            <td>${stringifyDate(empPayRollData._startDate)}</td>
             <td>
                 <img id="${empPayRollData.id}" onclick="remove(this)" src="../assest/Icon/deleteIcon.svg" alt="delete" />
                 <img id="${empPayRollData.id}" onclick="update(this)" src="../assest/Icon/EditIcon.svg" alt="edit" />
