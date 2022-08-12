@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", (event) =>
             <td>${empPayRollData._gender}</td>
             <td>${getDeptHtml(empPayRollData._department)}</td>
             <td>${empPayRollData._salary}</td>
-            <td>${stringifyDate(empPayRollData._startdate)}</td>
+            <td>${stringifyDate(empPayRollData._startDate)}</td>
             <td>
                 <img id="${empPayRollData.id}" onclick="remove(this)" src="../assest/Icon/deleteIcon.svg" alt="delete" />
                 <img id="${empPayRollData.id}" onclick="update(this)" src="../assest/Icon/EditIcon.svg" alt="edit" />
@@ -103,9 +103,26 @@ window.addEventListener("DOMContentLoaded", (event) =>
         .map(empData=>empData.id)
         .indexOf(empPayRollData.id);
     empPayrollList.splice(index,1);
-    localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
-    document.querySelector(".emp-count").textContent=empPayrollList.length;
-    createInnerHtml();
+    if(site_properties.use_local_storage.match("true"))
+    {
+        localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
+    //document.querySelector(".emp-count").textContent=empPayrollList.length;
+       createInnerHtml();
+
+    }
+    else{
+        const deleteURL=site_properties.server_url+empPayRollData.id.toString();
+        makeServiceCall("DELETE",deleteURL,false)
+        .then(responseText=>{
+            
+            createInnerHtml();
+
+        })
+        .catch(error=>{
+            console.log("DELETE Error status: "+JSON.stringify(error));
+        });
+    }
+    
     }
     //update
     let update = (node) =>

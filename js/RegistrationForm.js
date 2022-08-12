@@ -16,6 +16,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     });
     const date=document.querySelector('#date');
+    const error =  document.querySelector('.error');
     date.addEventListener('input',function()
     {
         let startDate=getInputValueById('#day')+" "+getInputValueById('#month')+" "+getInputValueById('#year');
@@ -94,31 +95,63 @@ const save=(event)=>
     event.stopPropagation();
     try{
         setEmployeePayrollObject();
-        createAndUpdateStorage();
-        resetForm();
-        window.location.replace(site_properties.home_page);
+        if(site_properties.use_local_storage.match("true"))
+        {
+            createAndUpdateStorage();
+            resetForm();
+            window.location.replace(site_properties.home_page);
+
+        }
+        else
+        {
+            createOrUpdateEmployeePayrollFromServer();
+        }
+        
     }
     catch(e)
     {
-        return(e);
+        return;
     }
 }
-const createOrUpdateEmployeePayroll=()=>{
-    let postURL=site_properties.server_url;
-    let methodCall="POST";
-    if(isUpdate){
-        methodCall="PUT";
-        postURL=postURL+employeePayrollObj.id.toString();
-    }
-makeServiceCall(methodCall,postURL,true,employeePayrollObj)
-    .then(responseText=>{
-        resetForm();
-        window.location.replace(site_properties.home_page);
-    })
-    .catch(error=>{
-        throw error;
+const createOrUpdateEmployeePayrollFromServer=()=>
+{
+  let postURL=site_properties.server_url;
+  let methodCall="POST";
+  if(isUpdate)
+  {
+    methodCall="PUT";
+    postURL=postURL+employeePayrollObj.id.toString();
+  }
+  makeServiceCall(methodCall,postURL,true,employeePayrollObj)
+ .then(responseText=>
+  {
+      resetForm();
+      window.location.replace(site_properties.home_page);
+    
+  })
+  .catch(error=>
+    {
+      throw error;
     });
 }
+// const createOrUpdateEmployeePayroll=()=>{
+//     let postURL=site_properties.server_url;
+//     let methodCall="POST";
+//     if(isUpdate){
+//         methodCall="PUT";
+//         postURL=postURL+employeePayrollObj.id.toString();
+//     }
+    
+// makeServiceCall(methodCall,postURL,true,employeePayrollObj)
+//     .then(responseText=>{
+//         resetForm();
+//         //window.location="../pages/HomePage.html"
+//         window.location.replace(site_properties.home_page);
+//     })
+//     .catch(error=>{
+//         throw error;
+//     });
+// }
 //setemployeeobject
 const setEmployeePayrollObject=()=>
 {
