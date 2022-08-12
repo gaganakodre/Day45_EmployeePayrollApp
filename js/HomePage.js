@@ -22,10 +22,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
             <td>${empPayRollData._gender}</td>
             <td>${getDeptHtml(empPayRollData._department)}</td>
             <td>${empPayRollData._salary}</td>
-            <td>${stringifyDate(empPayRollData.date)}</td>
+            <td>${stringifyDate(empPayRollData._startdate)}</td>
             <td>
-                <img id="${empPayRollData._id}" onclick="remove(this)" src="../assest/Icon/deleteIcon.svg" alt="delete" />
-                <img id="${empPayRollData._id}" onclick="update(this)" src="../assest/Icon/EditIcon.svg" alt="edit" />
+                <img id="${empPayRollData.id}" onclick="remove(this)" src="../assest/Icon/deleteIcon.svg" alt="delete" />
+                <img id="${empPayRollData.id}" onclick="update(this)" src="../assest/Icon/EditIcon.svg" alt="edit" />
             </td>
         </tr>`
         };
@@ -56,7 +56,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 _salary:'500000',
                 _startDate:'29 oct 2021',
                 _note:'',
-                _id:new Date().getTime(),
+                id:new Date().getTime(),
                 _profilePic:'G:/FellowShip517/Day45_EmployeePayrollApp/Day45_EmployeePayrollApp/assest/profilepic/Ellipse -1.png'
             },
             {
@@ -66,18 +66,18 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 _salary:'500000',
                 _startDate:'29 oct 2021',
                 _note:'',
-                _id:new Date().getTime()+1,
+                id:new Date().getTime()+1,
                 _profilePic:'../assets/profilepic/Ellipse-1.png'
             }
         ];
         return empPayrollListLocal;
     }
     const remove=(node)=>{
-        let empPayRollData=empPayrollList.find(empData=>empData._id==node.id);
+        let empPayRollData=empPayrollList.find(empData=>empData.id==node.id);
         if(!empPayRollData) return;
         const index=empPayrollList
-        .map(empData=>empData._id)
-        .indexOf(empPayRollData._id);
+        .map(empData=>empData.id)
+        .indexOf(empPayRollData.id);
     empPayrollList.splice(index,1);
     localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
     document.querySelector(".emp-count").textContent=empPayrollList.length;
@@ -86,7 +86,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     //update
     let update = (node) =>
             {
-                let empPayRollData=empPayrollList.find(empData => empData._id == node.id);
+                let empPayRollData=empPayrollList.find(empData => empData.id == node.id);
                 if(!empPayRollData) return;
                 localStorage.setItem('editEmp',JSON.stringify(empPayRollData));
                 window.location.replace(site_properties.add_emp_payroll_pages);

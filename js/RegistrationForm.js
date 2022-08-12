@@ -5,18 +5,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const name =document.querySelector('#name');
     const textError =  document.querySelector('.text-error');
     name.addEventListener('input', function() {
-        if(name.value.length == 0)
+        try
         {
+            checkName(name.value)
             textError.textContent = " ";
-            return;
         }
-        try{
-            (new EmployeePayrollData()).name = name.value;
-            textError.textContent= " ";
-        }
-        catch(e)
+        catch(ex)
         {
-            textError.textContent = e;
+            textError.textContent = ex;
         }
     });
     const date=document.querySelector('#date');
@@ -24,12 +20,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     {
         let startDate=getInputValueById('#day')+" "+getInputValueById('#month')+" "+getInputValueById('#year');
         try{
-            (new EmployeePayrollData()).startDate=new Date(Date.parse(startDate));
-            setTextValue('.error'," ");
+            checkStartDate(new Date(Date.parse(startDate))) 
+            error.textContent="";
         }
         catch(e)
         {
-            setTextValue('.error',e);
+            error.textContent=e;
         }
     });
     const salary = document.querySelector('#salary');
@@ -39,6 +35,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     output.textContent = salary.value;
       
     });
+    document.querySelector('#cancelbtn').href=site_properties.home_page;
     checkForUpdate();
 });
 const checkForUpdate=()=>{
@@ -106,9 +103,30 @@ const save=(event)=>
         return(e);
     }
 }
+const createOrUpdateEmployeePayroll=()=>{
+    let postURL=site_properties.server_url;
+    let methodCall="POST";
+    if(isUpdate){
+        methodCall="PUT";
+        postURL=postURL+employeePayrollObj.id.toString();
+    }
+    makeServiceCall(methodCall,postURL,true,employeePayrollObj)
+    .then(responseText=>{
+        resetForm();
+        window.location.replace(site_properties.home_page);
+    })
+    .catch(error=>{
+        throw error;
+    });
+}
 //setemployeeobject
 const setEmployeePayrollObject=()=>
 {
+    if(!isUpdate && site_properties.use_local_storage.match("true"))
+    {
+        employeePayrollObj.id=createNewEmployeeId();
+
+    }
     employeePayrollObj._name=getInputValueById('#name');
     employeePayrollObj._profilePic=getSelectedValues('[name=profile]').pop();
     employeePayrollObj._gender=getSelectedValues('[name=gender]').pop();
@@ -124,20 +142,20 @@ const createAndUpdateStorage=()=>
     let employeePayrollList=JSON.parse(localStorage.getItem("EmployeePayrollList"));
     if(employeePayrollList)
     {
-        let empPayRollData=employeePayrollList.find(empData => empData._id==employeePayrollObj._id);
+        let empPayRollData=employeePayrollList.find(empData => empData.id==employeePayrollObj.id);
         
             if(!empPayRollData)
             {
-                employeePayrollList.push(createEmployeePayrollData());
+                employeePayrollList.push(employeePayrollObj);
             }
             else{
-                const index=employeePayrollList.map(empData=>empData._id).indexOf(empPayRollData._id);
-                employeePayrollList.splice(index,1,createEmployeePayrollData(empPayRollData._id));
+                const index=employeePayrollList.map(empData=>empData.id).indexOf(empPayRollData.id);
+                employeePayrollList.splice(index,1,employeePayrollObj);
             }
     }
     else
     {
-            employeePayrollList=[createEmployeePayrollData()]
+            employeePayrollList=[employeePayrollObj]
     }
         //localStorage.setItem("EmployeePayrollList",JSON.parse(employeePayrollList))
         localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList))
