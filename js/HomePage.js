@@ -1,13 +1,37 @@
 let empPayrollList;
-window.addEventListener("DOMContentLoaded", (event) => {
-    empPayrollList=getEmployeePayrollDataFromStorage();
-    document.querySelector(".emp-count").textContent=empPayrollList.length;
-    createInnerHtml();
-    localStorage.removeItem('editEmp');
+window.addEventListener("DOMContentLoaded", (event) =>
+ {
+    if(site_properties.use_local_storage.match("true"))
+    {
+        empPayrollList=getEmployeePayrollDataFromStorage();
+        processEmployeePayrollDataResponse();
+    }
+    else
+    {
+        getEmployeePayrollDataFromServer();
+    }
+    
  });
  const getEmployeePayrollDataFromStorage=()=>{
     return localStorage.getItem('EmployeePayrollList') ?
     JSON.parse(localStorage.getItem('EmployeePayrollList')) : [];
+ }
+ const processEmployeePayrollDataResponse=()=>{
+    localStorage.removeItem('editEmp');
+    document.querySelector(".emp-count").textContent=empPayrollList.length;
+    createInnerHtml();
+ }
+ const getEmployeePayrollDataFromServer = () => {
+    makeServiceCall("GET",site_properties.server_url,true)
+    .then(responseText => {
+        empPayrollList=JSON.parse(responseText);
+        processEmployeePayrollDataResponse();
+    })
+    .catch(error => {
+        console.log("GET Error Status: "+JSON.stringify(error));
+        empPayrollList=[];
+        processEmployeePayrollDataResponse();
+    });
  }
     const createInnerHtml=()=>{
         const headerHtml= " <tr><th></th><th>Name</th><th>Gender</th><th>Department</th><th>Salary</th><th>Start Date</th><th>Actions</th></tr>";

@@ -110,7 +110,7 @@ const createOrUpdateEmployeePayroll=()=>{
         methodCall="PUT";
         postURL=postURL+employeePayrollObj.id.toString();
     }
-    makeServiceCall(methodCall,postURL,true,employeePayrollObj)
+makeServiceCall(methodCall,postURL,true,employeePayrollObj)
     .then(responseText=>{
         resetForm();
         window.location.replace(site_properties.home_page);
